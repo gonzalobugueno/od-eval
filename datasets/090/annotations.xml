@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<annotations>
+  <version>1.1</version>
+  <meta>
+    <job>
+      <id>6</id>
+      <size>565</size>
+      <mode>interpolation</mode>
+      <overlap>5</overlap>
+      <bugtracker></bugtracker>
+      <created>2025-07-20 20:19:55.979752+00:00</created>
+      <updated>2025-07-20 23:28:01.868561+00:00</updated>
+      <subset>default</subset>
+      <start_frame>0</start_frame>
+      <stop_frame>564</stop_frame>
+      <frame_filter></frame_filter>
+      <segments>
+        <segment>
+          <id>6</id>
+          <start>0</start>
+          <stop>564</stop>
+          <url>http://localhost:8080/api/jobs/6</url>
+        </segment>
+      </segments>
+      <owner>
+        <username>niggers</username>
+        <email>niggers@niggers.com</email>
+      </owner>
+      <assignee></assignee>
+      <labels>
+        <label>
+          <name>coin</name>
+          <color>#ffcc33</color>
+          <type>any</type>
+          <attributes>
+            <attribute>
+              <name>visibility</name>
+              <mutable>True</mutable>
+              <input_type>select</input_type>
+              <default_value>distinguishable</default_value>
+              <values>elongated
+clear
+distinguishable
+inferred</values>
+            </attribute>
+          </attributes>
+        </label>
+      </labels>
+    </job>
+    <dumped>2025-07-21 11:32:02.828961+00:00</dumped>
+    <original_size>
+      <width>1920</width>
+      <height>1080</height>
+    </original_size>
+  </meta>
+
+  <image id="386" name="frame_000386" width="1920" height="1080">
+    <box label="coin" source="manual" occluded="0" xtl="637.43" ytl="374.39" xbr="652.45" ybr="387.41" z_order="0">
+      <attribute name="visibility">clear</attribute>
+    </box>
+  </image>
+  <image id="387" name="frame_000387" width="1920" height="1080">
+    <box label="coin" source="manual" occluded="0" xtl="608.38" ytl="366.71" xbr="623.41" ybr="379.73" z_order="0">
+      <attribute name="visibility">clear</attribute>
+    </box>
+  </image>
+  <image id="388" name="frame_000388" width="1920" height="1080">
+    <box label="coin" source="manual" occluded="0" xtl="620.40" ytl="399.09" xbr="636.76" ybr="413.13" z_order="0">
+      <attribute name="visibility">distinguishable</attribute>
+    </box>
+  </image>
+  <image id="389" name="frame_000389" width="1920" height="1080">
+    <box label="coin" source="manual" occluded="0" xtl="609.38" ytl="410.45" xbr="625.75" ybr="424.48" z_order="0">
+      <attribute name="visibility">clear</attribute>
+    </box>
+  </image>
+  <image id="390" name="frame_000390" width="1920" height="1080">
+    <box label="coin" source="manual" occluded="0" xtl="607.38" ytl="427.80" xbr="623.74" ybr="441.84" z_order="0">
+      <attribute name="visibility">clear</attribute>
+    </box>
+  </image>
+  <image id="391" name="frame_000391" width="1920" height="1080">
+    <box label="coin" source="manual" occluded="0" xtl="600.70" ytl="451.84" xbr="618.70" ybr="467.84" z_order="0">
+      <attribute name="visibility">distinguishable</attribute>
+    </box>
+  </image>
+  <image id="392" name="frame_000392" width="1920" height="1080">
+    <box label="coin" source="manual" occluded="0" xtl="593.02" ytl="473.88" xbr="611.02" ybr="489.87" z_order="0">
+      <attribute name="visibility">distinguishable</attribute>
+    </box>
+  </image>
+  <image id="393" name="frame_000393" width="1920" height="1080">
+    <box label="coin" source="manual" occluded="0" xtl="577.00" ytl="498.25" xbr="596.60" ybr="516.50" z_order="0">
+      <attribute name="visibility">inferred</attribute>
+    </box>
+  </image>
+  <image id="394" name="frame_000394" width="1920" height="1080">
+    <box label="coin" source="manual" occluded="0" xtl="558.97" ytl="530.30" xbr="579.68" ybr="549.58" z_order="0">
+      <attribute name="visibility">inferred</attribute>
+    </box>
+  </image>
+  <image id="395" name="frame_000395" width="1920" height="1080">
+    <box label="coin" source="manual" occluded="0" xtl="542.36" ytl="560.06" xbr="563.06" ybr="579.35" z_order="0">
+      <attribute name="visibility">distinguishable</attribute>
+    </box>
+  </image>
+  <image id="396" name="frame_000396" width="1920" height="1080">
+    <box label="coin" source="manual" occluded="0" xtl="521.13" ytl="590.47" xbr="541.80" ybr="616.40" z_order="0">
+      <attribute name="visibility">inferred</attribute>
+    </box>
+  </image>
+  <image id="397" name="frame_000397" width="1920" height="1080">
+    <box label="coin" source="manual" occluded="0" xtl="503.91" ytl="629.49" xbr="527.70" ybr="650.80" z_order="0">
+      <attribute name="visibility">elongated</attribute>
+    </box>
+  </image>
+  <image id="398" name="frame_000398" width="1920" height="1080">
+    <box label="coin" source="manual" occluded="0" xtl="474.40" ytl="652.78" xbr="499.85" ybr="676.93" z_order="0">
+      <attribute name="visibility">distinguishable</attribute>
+    </box>
+  </image>
+  <image id="399" name="frame_000399" width="1920" height="1080">
+    <box label="coin" source="manual" occluded="0" xtl="459.14" ytl="696.59" xbr="484.58" ybr="720.74" z_order="0">
+      <attribute name="visibility">elongated</attribute>
+    </box>
+  </image>
+  <image id="400" name="frame_000400" width="1920" height="1080">
+    <box label="coin" source="manual" occluded="0" xtl="431.58" ytl="732.11" xbr="457.03" ybr="756.26" z_order="0">
+      <attribute name="visibility">elongated</attribute>
+    </box>
+  </image>
+  <image id="401" name="frame_000401" width="1920" height="1080">
+    <box label="coin" source="manual" occluded="0" xtl="409.00" ytl="772.94" xbr="437.11" ybr="799.70" z_order="0">
+      <attribute name="visibility">elongated</attribute>
+    </box>
+  </image>
+  <image id="402" name="frame_000402" width="1920" height="1080">
+    <box label="coin" source="manual" occluded="0" xtl="378.79" ytl="820.40" xbr="406.91" ybr="847.17" z_order="0">
+      <attribute name="visibility">elongated</attribute>
+    </box>
+  </image>
+  <image id="403" name="frame_000403" width="1920" height="1080">
+    <box label="coin" source="manual" occluded="0" xtl="353.87" ytl="867.87" xbr="378.69" ybr="893.30" z_order="0">
+      <attribute name="visibility">elongated</attribute>
+    </box>
+  </image>
+  <image id="404" name="frame_000404" width="1920" height="1080">
+    <box label="coin" source="manual" occluded="0" xtl="325.50" ytl="917.66" xbr="351.48" ybr="945.20" z_order="0">
+      <attribute name="visibility">elongated</attribute>
+    </box>
+  </image>
+  <image id="405" name="frame_000405" width="1920" height="1080">
+    <box label="coin" source="manual" occluded="0" xtl="283.00" ytl="979.40" xbr="312.64" ybr="1009.90" z_order="0">
+      <attribute name="visibility">elongated</attribute>
+    </box>
+  </image>
+  <image id="406" name="frame_000406" width="1920" height="1080">
+    <box label="coin" source="manual" occluded="0" xtl="251.34" ytl="1053.75" xbr="278.78" ybr="1080.00" z_order="0">
+      <attribute name="visibility">elongated</attribute>
+    </box>
+  </image>
+</annotations>
