@@ -22,13 +22,24 @@ def grid_search(params):
         yield dict(zip(keys, values))
 
 
-param_grid = {
+param_grid_synthetic = {
     'coin_x_metres': [-0.5, -0.25, 0, 0.25, 0.5],
     'coin_y_metres': [-0.1, 0, 0.25, 0.5],
     'coin_yaw': [math.radians(i) for i in range(0, 360, 45)],
     'sun_angle': [math.radians(0.53)],
     'sun_energy': [5, 10],
     'sun_rotation': [(15, 90), (75, 180), (15, 270)],
+    'render_samples': [1],
+    'res_factor': [1]
+}
+
+param_grid_simple = {
+    'coin_x_metres': [-0.5, -0.25, 0, 0.25, 0.5],
+    'coin_y_metres': [-0.1, 0, 0.25, 0.5],
+    'coin_yaw': [0],
+    'sun_angle': [math.radians(0.53)],
+    'sun_energy': [10],
+    'sun_rotation': [(75, 180)],
     'render_samples': [1],
     'res_factor': [1]
 }
@@ -108,7 +119,7 @@ CAM = bpy.data.objects['Camera']
 scene.camera = CAM
 
 # Iterate grid
-for idx, grid in enumerate(grid_search(param_grid)):
+for idx, grid in enumerate(grid_search(param_grid_simple)):
     # Set transforms
     obj.location.x = grid['coin_x_metres']
     obj.location.y = grid['coin_y_metres']
