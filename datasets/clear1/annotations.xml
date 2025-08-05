@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<annotations>
+  <version>1.1</version>
+  <meta>
+    <job>
+      <id>4</id>
+      <size>4</size>
+      <mode>annotation</mode>
+      <overlap>0</overlap>
+      <bugtracker></bugtracker>
+      <created>2025-08-05 12:37:44.890473+00:00</created>
+      <updated>2025-08-05 13:04:01.059445+00:00</updated>
+      <subset>default</subset>
+      <start_frame>0</start_frame>
+      <stop_frame>3</stop_frame>
+      <frame_filter></frame_filter>
+      <segments>
+        <segment>
+          <id>4</id>
+          <start>0</start>
+          <stop>3</stop>
+          <url>http://localhost:8080/api/jobs/4</url>
+        </segment>
+      </segments>
+      <owner>
+        <username>nobody</username>
+        <email>nobody@nobody.com</email>
+      </owner>
+      <assignee></assignee>
+      <labels>
+        <label>
+          <name>coin</name>
+          <color>#ffcc33</color>
+          <type>any</type>
+          <attributes>
+            <attribute>
+              <name>visibility</name>
+              <mutable>True</mutable>
+              <input_type>select</input_type>
+              <default_value>distinguishable</default_value>
+              <values>elongated
+clear
+distinguishable
+inferred</values>
+            </attribute>
+          </attributes>
+        </label>
+      </labels>
+    </job>
+    <dumped>2025-08-05 13:06:12.430353+00:00</dumped>
+  </meta>
+  <image id="0" name="20250805_133043.jpg" width="4000" height="2252">
+    <box label="coin" source="manual" occluded="0" xtl="2307.42" ytl="1092.82" xbr="2351.89" ybr="1130.20" z_order="0">
+      <attribute name="visibility">clear</attribute>
+    </box>
+  </image>
+  <image id="1" name="20250805_133048.jpg" width="4000" height="2252">
+    <box label="coin" source="manual" occluded="0" xtl="2916.01" ytl="2008.97" xbr="2985.96" ybr="2081.90" z_order="0">
+      <attribute name="visibility">clear</attribute>
+    </box>
+  </image>
+  <image id="2" name="20250805_133110.jpg" width="4000" height="2252">
+    <box label="coin" source="manual" occluded="0" xtl="1684.77" ytl="986.38" xbr="1718.22" ybr="1012.00" z_order="0">
+      <attribute name="visibility">clear</attribute>
+    </box>
+  </image>
+  <image id="3" name="20250805_133113.jpg" width="4000" height="2252">
+    <box label="coin" source="manual" occluded="0" xtl="1365.32" ytl="1863.29" xbr="1426.18" ybr="1928.36" z_order="0">
+      <attribute name="visibility">clear</attribute>
+    </box>
+  </image>
+</annotations>
