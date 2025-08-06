@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="utf-8"?>
+<annotations>
+  <version>1.1</version>
+  <meta>
+    <job>
+      <id>6</id>
+      <size>55</size>
+      <mode>annotation</mode>
+      <overlap>0</overlap>
+      <bugtracker></bugtracker>
+      <created>2025-08-06 13:29:08.169535+00:00</created>
+      <updated>2025-08-06 13:48:08.885452+00:00</updated>
+      <subset>default</subset>
+      <start_frame>0</start_frame>
+      <stop_frame>54</stop_frame>
+      <frame_filter></frame_filter>
+      <segments>
+        <segment>
+          <id>6</id>
+          <start>0</start>
+          <stop>54</stop>
+          <url>http://localhost:8080/api/jobs/6</url>
+        </segment>
+      </segments>
+      <owner>
+        <username>nobody</username>
+        <email>nobody@nobody.com</email>
+      </owner>
+      <assignee></assignee>
+      <labels>
+        <label>
+          <name>coin</name>
+          <color>#ffcc33</color>
+          <type>any</type>
+          <attributes>
+            <attribute>
+              <name>visibility</name>
+              <mutable>True</mutable>
+              <input_type>select</input_type>
+              <default_value>distinguishable</default_value>
+              <values>elongated
+clear
+distinguishable
+inferred</values>
+            </attribute>
+          </attributes>
+        </label>
+      </labels>
+    </job>
+    <dumped>2025-08-06 13:48:32.971432+00:00</dumped>
+  </meta>
+  <image id="0" name="20250806_131606.jpg" width="4000" height="2252">
+    <box label="coin" source="manual" occluded="0" xtl="3139.08" ytl="1921.39" xbr="3190.21" ybr="1963.07" z_order="0">
+      <attribute name="visibility">clear</attribute>
+    </box>
+  </image>
+  <image id="1" name="20250806_131608.jpg" width="4000" height="2252">
+    <box label="coin" source="manual" occluded="0" xtl="1923.34" ytl="1920.85" xbr="1965.02" ybr="1960.01" z_order="0">
+      <attribute name="visibility">clear</attribute>
+    </box>
+  </image>
+  <image id="2" name="20250806_131611.jpg" width="4000" height="2252">
+    <box label="coin" source="manual" occluded="0" xtl="774.61" ytl="2022.17" xbr="830.58" ybr="2068.48" z_order="0">
+      <attribute name="visibility">clear</attribute>
+    </box>
+  </image>
+  <image id="3" name="20250806_131614.jpg" width="4000" height="2252">
+    <box label="coin" source="manual" occluded="0" xtl="1914.23" ytl="1450.82" xbr="1944.38" ybr="1474.89" z_order="0">
+      <attribute name="visibility">clear</attribute>
+    </box>
+  </image>
+  <image id="4" name="20250806_131615.jpg" width="4000" height="2252">
+    <box label="coin" source="manual" occluded="0" xtl="2188.47" ytl="1172.76" xbr="2212.19" ybr="1187.96" z_order="0">
+      <attribute name="visibility">clear</attribute>
+    </box>
+  </image>
+  <image id="5" name="20250806_131618.jpg" width="4000" height="2252">
+    <box label="coin" source="manual" occluded="0" xtl="1440.97" ytl="1475.59" xbr="1472.52" ybr="1498.26" z_order="0">
+      <attribute name="visibility">clear</attribute>
+    </box>
+  </image>
+  <image id="6" name="20250806_131620.jpg" width="4000" height="2252">
+    <box label="coin" source="manual" occluded="0" xtl="2065.11" ytl="1685.65" xbr="2111.87" ybr="1727.08" z_order="0">
+      <attribute name="visibility">clear</attribute>
+    </box>
+  </image>
+  <image id="7" name="20250806_131621.jpg" width="4000" height="2252">
+    <box label="coin" source="manual" occluded="0" xtl="1907.94" ytl="1361.70" xbr="1947.58" ybr="1394.64" z_order="0">
+      <attribute name="visibility">clear</attribute>
+    </box>
+  </image>
+  <image id="8" name="20250806_131623.jpg" width="4000" height="2252">
+    <box label="coin" source="manual" occluded="0" xtl="2678.21" ytl="1349.95" xbr="2719.66" ybr="1384.05" z_order="0">
+      <attribute name="visibility">clear</attribute>
+    </box>
+  </image>
+  <image id="9" name="20250806_131625.jpg" width="4000" height="2252">
+    <box label="coin" source="manual" occluded="0" xtl="1021.81" ytl="1341.88" xbr="1073.39" ybr="1384.05" z_order="0">
+      <attribute name="visibility">clear</attribute>
+    </box>
+  </image>
+  <image id="10" name="20250806_131628.jpg" width="4000" height="2252">
+    <box label="coin" source="manual" occluded="0" xtl="2912.35" ytl="2062.59" xbr="2974.97" ybr="2123.53" z_order="0">
+      <attribute name="visibility">clear</attribute>
+    </box>
+  </image>
+  <image id="11" name="20250806_131911.jpg" width="4000" height="2252">
+    <box label="coin" source="manual" occluded="0" xtl="2032.09" ytl="1419.26" xbr="2068.93" ybr="1453.30" z_order="0">
+      <attribute name="visibility">clear</attribute>
+    </box>
+  </image>
+  <image id="12" name="20250806_131920.jpg" width="4000" height="2252">
+    <box label="coin" source="manual" occluded="0" xtl="1864.33" ytl="1524.15" xbr="1906.11" ybr="1562.82" z_order="0">
+      <attribute name="visibility">clear</attribute>
+    </box>
+  </image>
+  <image id="13" name="20250806_131921.jpg" width="4000" height="2252">
+    <box label="coin" source="manual" occluded="0" xtl="2400.10" ytl="1815.49" xbr="2451.68" ybr="1867.71" z_order="0">
+      <attribute name="visibility">clear</attribute>
+    </box>
+  </image>
+  <image id="14" name="20250806_131922.jpg" width="4000" height="2252">
+    <box label="coin" source="manual" occluded="0" xtl="1711.41" ytl="1772.59" xbr="1759.38" ybr="1820.81" z_order="0">
+      <attribute name="visibility">clear</attribute>
+    </box>
+  </image>
+  <image id="15" name="20250806_131923.jpg" width="4000" height="2252">
+    <box label="coin" source="manual" occluded="0" xtl="1066.23" ytl="1840.43" xbr="1121.92" ybr="1895.32" z_order="0">
+      <attribute name="visibility">clear</attribute>
+    </box>
+  </image>
+  <image id="16" name="20250806_131924.jpg" width="4000" height="2252">
+    <box label="coin" source="manual" occluded="0" xtl="2026.27" ytl="1414.50" xbr="2076.49" ybr="1460.33" z_order="0">
+      <attribute name="visibility">clear</attribute>
+    </box>
+  </image>
+  <image id="17" name="20250806_131925.jpg" width="4000" height="2252">
+    <box label="coin" source="manual" occluded="0" xtl="2661.14" ytl="1221.59" xbr="2711.98" ybr="1261.80" z_order="0">
+      <attribute name="visibility">clear</attribute>
+    </box>
+  </image>
+  <image id="18" name="20250806_131926.jpg" width="4000" height="2252">
+    <box label="coin" source="manual" occluded="0" xtl="2311.18" ytl="1174.40" xbr="2343.31" ybr="1202.45" z_order="0">
+      <attribute name="visibility">clear</attribute>
+    </box>
+  </image>
+  <image id="19" name="20250806_131927.jpg" width="4000" height="2252">
+    <box label="coin" source="manual" occluded="0" xtl="1883.43" ytl="1166.73" xbr="1915.53" ybr="1192.23" z_order="0">
+      <attribute name="visibility">clear</attribute>
+    </box>
+  </image>
+  <image id="20" name="20250806_131932.jpg" width="4000" height="2252">
+    <box label="coin" source="manual" occluded="0" xtl="1757.13" ytl="1366.77" xbr="1790.23" ybr="1396.27" z_order="0">
+      <attribute name="visibility">clear</attribute>
+    </box>
+  </image>
+  <image id="21" name="20250806_131933.jpg" width="4000" height="2252">
+    <box label="coin" source="manual" occluded="0" xtl="2368.83" ytl="1412.77" xbr="2402.97" ybr="1444.76" z_order="0">
+      <attribute name="visibility">clear</attribute>
+    </box>
+  </image>
+  <image id="22" name="20250806_131934.jpg" width="4000" height="2252">
+    <box label="coin" source="manual" occluded="0" xtl="1590.89" ytl="1369.68" xbr="1625.72" ybr="1398.91" z_order="0">
+      <attribute name="visibility">clear</attribute>
+    </box>
+  </image>
+  <image id="23" name="20250806_131935.jpg" width="4000" height="2252">
+    <box label="coin" source="manual" occluded="0" xtl="1224.67" ytl="1315.78" xbr="1261.54" ybr="1347.69" z_order="0">
+      <attribute name="visibility">clear</attribute>
+    </box>
+  </image>
+  <image id="24" name="20250806_131936.jpg" width="4000" height="2252">
+    <box label="coin" source="manual" occluded="0" xtl="1445.92" ytl="1653.86" xbr="1488.02" ybr="1690.77" z_order="0">
+      <attribute name="visibility">clear</attribute>
+    </box>
+  </image>
+  <image id="25" name="20250806_131937.jpg" width="4000" height="2252">
+    <box label="coin" source="manual" occluded="0" xtl="1692.53" ytl="1910.39" xbr="1738.53" ybr="1956.39" z_order="0">
+      <attribute name="visibility">clear</attribute>
+    </box>
+  </image>
+  <image id="26" name="20250806_131938.jpg" width="4000" height="2252">
+    <box label="coin" source="manual" occluded="0" xtl="2000.52" ytl="2051.72" xbr="2051.20" ybr="2107.37" z_order="0">
+      <attribute name="visibility">clear</attribute>
+    </box>
+  </image>
+  <image id="27" name="20250806_131939.jpg" width="4000" height="2252">
+    <box label="coin" source="manual" occluded="0" xtl="2259.43" ytl="2152.40" xbr="2309.87" ybr="2207.26" z_order="0">
+      <attribute name="visibility">clear</attribute>
+    </box>
+  </image>
+  <image id="28" name="20250806_131941.jpg" width="4000" height="2252">
+    <box label="coin" source="manual" occluded="0" xtl="674.52" ytl="2190.19" xbr="734.00" ybr="2247.66" z_order="0">
+      <attribute name="visibility">clear</attribute>
+    </box>
+  </image>
+  <image id="29" name="20250806_131943.jpg" width="4000" height="2252">
+    <box label="coin" source="manual" occluded="0" xtl="1852.02" ytl="1166.54" xbr="1883.22" ybr="1190.74" z_order="0">
+      <attribute name="visibility">clear</attribute>
+    </box>
+  </image>
+  <image id="30" name="20250806_131944.jpg" width="4000" height="2252">
+    <box label="coin" source="manual" occluded="0" xtl="2290.02" ytl="1263.78" xbr="2321.22" ybr="1288.08" z_order="0">
+      <attribute name="visibility">clear</attribute>
+    </box>
+  </image>
+  <image id="31" name="20250806_131945.jpg" width="4000" height="2252">
+    <box label="coin" source="manual" occluded="0" xtl="2662.59" ytl="1354.26" xbr="2693.09" ybr="1379.46" z_order="0">
+      <attribute name="visibility">clear</attribute>
+    </box>
+  </image>
+  <image id="32" name="20250806_131947.jpg" width="4000" height="2252">
+    <box label="coin" source="manual" occluded="0" xtl="1566.66" ytl="1191.78" xbr="1596.56" ybr="1214.58" z_order="0">
+      <attribute name="visibility">clear</attribute>
+    </box>
+  </image>
+  <image id="33" name="20250806_131948.jpg" width="4000" height="2252">
+    <box label="coin" source="manual" occluded="0" xtl="1569.93" ytl="1073.63" xbr="1600.83" ybr="1098.63" z_order="0">
+      <attribute name="visibility">clear</attribute>
+    </box>
+  </image>
+  <image id="34" name="20250806_133001.jpg" width="4000" height="2252">
+    <box label="coin" source="manual" occluded="0" xtl="2288.90" ytl="1210.03" xbr="2314.81" ybr="1227.73" z_order="0">
+      <attribute name="visibility">clear</attribute>
+    </box>
+  </image>
+  <image id="35" name="20250806_133003.jpg" width="4000" height="2252">
+    <box label="coin" source="manual" occluded="0" xtl="2301.20" ytl="1436.20" xbr="2333.27" ybr="1461.91" z_order="0">
+      <attribute name="visibility">clear</attribute>
+    </box>
+  </image>
+  <image id="36" name="20250806_133004(0).jpg" width="4000" height="2252">
+    <box label="coin" source="manual" occluded="0" xtl="2637.12" ytl="1663.04" xbr="2682.81" ybr="1702.38" z_order="0">
+      <attribute name="visibility">clear</attribute>
+    </box>
+  </image>
+  <image id="37" name="20250806_133004.jpg" width="4000" height="2252">
+    <box label="coin" source="manual" occluded="0" xtl="2431.70" ytl="1561.43" xbr="2472.00" ybr="1595.63" z_order="0">
+      <attribute name="visibility">clear</attribute>
+    </box>
+  </image>
+  <image id="38" name="20250806_133005.jpg" width="4000" height="2252">
+    <box label="coin" source="manual" occluded="0" xtl="2145.63" ytl="1671.04" xbr="2189.43" ybr="1711.94" z_order="0">
+      <attribute name="visibility">clear</attribute>
+    </box>
+  </image>
+  <image id="39" name="20250806_133006.jpg" width="4000" height="2252">
+    <box label="coin" source="manual" occluded="0" xtl="1780.25" ytl="1697.02" xbr="1825.95" ybr="1742.52" z_order="0">
+      <attribute name="visibility">clear</attribute>
+    </box>
+  </image>
+  <image id="40" name="20250806_133008.jpg" width="4000" height="2252">
+    <box label="coin" source="manual" occluded="0" xtl="1542.68" ytl="1224.38" xbr="1583.88" ybr="1257.78" z_order="0">
+      <attribute name="visibility">clear</attribute>
+    </box>
+  </image>
+  <image id="41" name="20250806_133009.jpg" width="4000" height="2252">
+    <box label="coin" source="manual" occluded="0" xtl="2639.24" ytl="1394.75" xbr="2677.24" ybr="1425.15" z_order="0">
+      <attribute name="visibility">clear</attribute>
+    </box>
+  </image>
+  <image id="42" name="20250806_133011(0).jpg" width="4000" height="2252">
+    <box label="coin" source="manual" occluded="0" xtl="3382.94" ytl="1848.63" xbr="3434.67" ybr="1894.95" z_order="0">
+      <attribute name="visibility">clear</attribute>
+    </box>
+  </image>
+  <image id="43" name="20250806_133011.jpg" width="4000" height="2252">
+    <box label="coin" source="manual" occluded="0" xtl="3201.65" ytl="1397.18" xbr="3242.55" ybr="1428.38" z_order="0">
+      <attribute name="visibility">clear</attribute>
+    </box>
+  </image>
+  <image id="44" name="20250806_133012.jpg" width="4000" height="2252">
+    <box label="coin" source="manual" occluded="0" xtl="3631.41" ytl="2140.45" xbr="3690.31" ybr="2198.75" z_order="0">
+      <attribute name="visibility">clear</attribute>
+    </box>
+  </image>
+  <image id="45" name="20250806_133013.jpg" width="4000" height="2252">
+    <box label="coin" source="manual" occluded="0" xtl="3713.30" ytl="2217.40" xbr="3769.29" ybr="2252.00" z_order="0">
+      <attribute name="visibility">clear</attribute>
+    </box>
+  </image>
+  <image id="46" name="20250806_133014.jpg" width="4000" height="2252">
+    <box label="coin" source="manual" occluded="0" xtl="2940.37" ytl="1919.50" xbr="2988.23" ybr="1966.43" z_order="0">
+      <attribute name="visibility">clear</attribute>
+    </box>
+  </image>
+  <image id="47" name="20250806_133015.jpg" width="4000" height="2252">
+    <box label="coin" source="manual" occluded="0" xtl="2236.55" ytl="1909.32" xbr="2280.05" ybr="1953.12" z_order="0">
+      <attribute name="visibility">clear</attribute>
+    </box>
+  </image>
+  <image id="48" name="20250806_133019.jpg" width="4000" height="2252">
+    <box label="coin" source="manual" occluded="0" xtl="1954.50" ytl="988.42" xbr="1977.90" ybr="1004.42" z_order="0">
+      <attribute name="visibility">clear</attribute>
+    </box>
+  </image>
+  <image id="49" name="20250806_133020.jpg" width="4000" height="2252">
+    <box label="coin" source="manual" occluded="0" xtl="1601.85" ytl="919.88" xbr="1626.30" ybr="935.60" z_order="0">
+      <attribute name="visibility">clear</attribute>
+    </box>
+  </image>
+  <image id="50" name="20250806_133022.jpg" width="4000" height="2252">
+    <box label="coin" source="manual" occluded="0" xtl="2093.84" ytl="993.69" xbr="2117.30" ybr="1007.67" z_order="0">
+      <attribute name="visibility">clear</attribute>
+    </box>
+  </image>
+  <image id="51" name="20250806_133023.jpg" width="4000" height="2252">
+    <box label="coin" source="manual" occluded="0" xtl="2365.34" ytl="1023.63" xbr="2386.98" ybr="1038.32" z_order="0">
+      <attribute name="visibility">clear</attribute>
+    </box>
+  </image>
+  <image id="52" name="20250806_133024.jpg" width="4000" height="2252">
+    <box label="coin" source="manual" occluded="0" xtl="2568.82" ytl="1375.00" xbr="2600.01" ybr="1399.23" z_order="0">
+      <attribute name="visibility">clear</attribute>
+    </box>
+  </image>
+  <image id="53" name="20250806_133025.jpg" width="4000" height="2252">
+    <box label="coin" source="manual" occluded="0" xtl="2966.94" ytl="1856.72" xbr="3008.14" ybr="1894.51" z_order="0">
+      <attribute name="visibility">clear</attribute>
+    </box>
+  </image>
+  <image id="54" name="20250806_133027.jpg" width="4000" height="2252">
+    <box label="coin" source="manual" occluded="0" xtl="3204.27" ytl="2127.74" xbr="3254.63" ybr="2177.21" z_order="0">
+      <attribute name="visibility">clear</attribute>
+    </box>
+  </image>
+</annotations>
