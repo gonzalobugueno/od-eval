@@ -4,6 +4,144 @@ def scale_ar_factor(to=(1, 1), from_=(16, 9)):
     return ((nw / ow) / (nh / oh))
 
 
+def cvat_to_gray(dir, output_dir, colour=(128, 128, 128)):
+    import os
+    import shutil
+    from PIL import Image
+
+    orig_images_dir = os.path.join(dir, 'images')
+    dest_images_dir = os.path.join(output_dir, 'images')
+
+    os.makedirs(dest_images_dir, exist_ok=True)
+
+    for fn in filter(lambda x: x.lower().endswith(".png"), os.listdir(orig_images_dir)):
+        with Image.open(os.path.join(orig_images_dir, fn)) as im:
+            if im.mode != "RGBA":
+                continue
+
+            bg = Image.new("RGB", im.size, colour)
+            bg.paste(im, (0, 0), im)
+
+            bg.save(os.path.join(dest_images_dir, fn))
+
+    shutil.copy(os.path.join(dir, "annotations.xml"), output_dir)
+
+
+def convert_cvat_to_yolo(xmls, output_dir="./datasets/.tmpyolo", copy=False):
+    import os
+    import xml.etree.ElementTree as ET
+    from pathlib import Path
+    import shutil
+
+    counter = 0
+
+    def parse_cvat_xml(xml_path, ext=None, visibility=None):
+        tree = ET.parse(xml_path)
+        root = tree.getroot()
+        annotations = {}
+        image_dir = Path(xml_path).parent  # Assume images are in the same folder
+
+        for image in root.iter("image"):
+
+            name = image.attrib["name"] if ext is None else (image.attrib["name"] + '.' + ext)
+            width = int(image.attrib["width"])
+            height = int(image.attrib["height"])
+            boxes = []
+
+            for box in image.iter("box"):
+
+                attr = box.find('attribute')
+
+                vis = attr.text if attr is not None and attr.get('name') == 'visibility' else None
+                if visibility is not None and vis not in visibility:
+                    continue
+
+                label = box.attrib["label"]
+                xtl = float(box.attrib["xtl"])
+                ytl = float(box.attrib["ytl"])
+                xbr = float(box.attrib["xbr"])
+                ybr = float(box.attrib["ybr"])
+                boxes.append((label, xtl, ytl, xbr, ybr))
+
+            annotations[name] = {
+                "width": width,
+                "height": height,
+                "boxes": boxes,
+                "image_path": image_dir / "images" / name
+            }
+
+        return annotations
+
+    splitcount = {
+        "train": 0,
+        "val": 0,
+        "test": 0
+    }
+
+    def convert_and_write(annotations, split, out_dir, class_name_to_id, prefix=None):
+        label_dir = out_dir / "labels" / split
+        image_dir = out_dir / "images" / split
+        label_dir.mkdir(parents=True, exist_ok=True)
+        image_dir.mkdir(parents=True, exist_ok=True)
+
+        for filename, data in annotations.items():
+            stem = Path(filename).stem
+            label_file = label_dir / (f"{stem}.txt" if prefix is None else f"{prefix}{stem}.txt")
+            img_src = data["image_path"]
+            img_dst = image_dir / (filename if prefix is None else f"{prefix}{filename}")
+
+            # Write YOLO label file
+            with open(label_file, "w") as f:
+                for label, xtl, ytl, xbr, ybr in data["boxes"]:
+                    if label not in class_name_to_id:
+                        class_name_to_id[label] = len(class_name_to_id)
+
+                    class_id = class_name_to_id[label]
+                    x_center = (xtl + xbr) / 2.0 / data["width"]
+                    y_center = (ytl + ybr) / 2.0 / data["height"]
+                    box_width = (xbr - xtl) / data["width"]
+                    box_height = (ybr - ytl) / data["height"]
+
+                    f.write(f"{class_id} {x_center:.6f} {y_center:.6f} {box_width:.6f} {box_height:.6f}\n")
+
+            try:
+                if copy:
+                    shutil.copy(img_src.resolve(), img_dst)
+                else:
+                    os.symlink(img_src.resolve(), img_dst)
+            except FileExistsError:
+                pass  # already exists
+
+            splitcount[split] += 1
+
+    def write_data_yaml(out_dir, class_name_to_id):
+        yaml_path = out_dir / "data.yaml"
+        with open(yaml_path, "w") as f:
+            f.write(f"path: {out_dir.resolve()}\n")
+            f.write("train: images/train\n")
+            f.write("val: images/val\n")
+            f.write("test: images/test\n\n")
+            f.write(f"nc: {len(class_name_to_id)}\n")
+            f.write(f"names: {list(class_name_to_id.keys())}\n")
+
+    # Start processing
+    out_dir = Path(output_dir)
+    out_dir.mkdir(parents=True, exist_ok=True)
+    class_name_to_id = {}
+
+    for xml_path, role, ext, visibility in xmls:
+        if role not in {"train", "val", "test"}:
+            raise ValueError(f"Invalid role '{role}' for file '{xml_path}'. Must be one of: train, val, test")
+        annotations = parse_cvat_xml(xml_path, ext, visibility)
+        convert_and_write(annotations, role, out_dir, class_name_to_id, prefix=Path(xml_path).parts[-2] + '_')
+
+    for split, count in splitcount.items():
+        print(f"Wrote {count} samples for split '{split}'.")
+
+    write_data_yaml(out_dir, class_name_to_id)
+    return str((out_dir / "data.yaml").resolve())
+
+
 def grid_search(params):
     import itertools
 
