@@ -41,7 +41,7 @@ def get_real_samples(ds):
             yield image, boxes, classes
 
 
-def build_output_signature(d_img, d_bb, tsz, use32=True):
+def build_output_signature(d_img, d_bb, tsz, use32=True, normalise=True):
     """
     computes output signature based on parameters
     :param d_img: bool
@@ -52,10 +52,8 @@ def build_output_signature(d_img, d_bb, tsz, use32=True):
 
     import tensorflow as tf
 
-    sig_x = {"images": tf.TensorSpec(shape=(*tsz, 3),
-                                     dtype=tf.float32 if use32 else tf.float16)} if d_img else tf.TensorSpec(
-        shape=(*tsz, 3),
-        dtype=tf.float32 if use32 else tf.float16)
+    img = tf.TensorSpec(shape=(*tsz, 3), dtype=tf.float32 if use32 else tf.float16) if normalise else tf.uint8
+    sig_x = {"images": img} if d_img else img
     sig_y = {
         "bounding_boxes": {
             "boxes": tf.TensorSpec(shape=(1, 4), dtype=tf.float32),
@@ -129,8 +127,8 @@ def shape_coin_output(d_img, d_bb, img, box, cls=0):
     return x, y
 
 
-def multi_coin_ds(xml_paths, nobox=True, togray=False, visibility=None, format='xywh', tsz=(1024, 1024), d_img=True,
-                  d_bb=True, shuffle=True, use32=True):
+def multi_coin_ds(xml_paths, nobox=True, normalise=True, togray=False, visibility=None, format='xywh', tsz=(1024, 1024),
+                  d_img=True, d_bb=True, shuffle=True, use32=True):
     """
 
     :param xml_paths: (xml_path, ext) = ext may be none
@@ -213,7 +211,11 @@ def multi_coin_ds(xml_paths, nobox=True, togray=False, visibility=None, format='
                 finalimg = img.convert('RGB')
 
             finalimg = finalimg.resize(tsz)
-            finalimg = (np.array(finalimg) / 255.0).astype(np.float32 if use32 else np.float16)
+
+            if normalise:
+                finalimg = (np.array(finalimg) / 255.0).astype(np.float32 if use32 else np.float16)
+            else:
+                finalimg = np.array(finalimg, dtype=np.uint8)
 
             img.close()
 
