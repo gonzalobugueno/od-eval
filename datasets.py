@@ -1,3 +1,9 @@
+def scale_ar_factor(to=(1, 1), from_=(16, 9)):
+    nw, nh = to
+    ow, oh = from_
+    return ((nw / ow) / (nh / oh))
+
+
 def grid_search(params):
     import itertools
 
