@@ -1,5 +1,3 @@
-
-
 def grid_search(params):
     import itertools
 
@@ -37,7 +35,7 @@ def get_real_samples(ds):
             yield image, boxes, classes
 
 
-def build_output_signature(d_img, d_bb, tsz):
+def build_output_signature(d_img, d_bb, tsz, use32=True):
     """
     computes output signature based on parameters
     :param d_img: bool
@@ -48,8 +46,10 @@ def build_output_signature(d_img, d_bb, tsz):
 
     import tensorflow as tf
 
-    sig_x = {"images": tf.TensorSpec(shape=(*tsz, 3), dtype=tf.float32)} if d_img else tf.TensorSpec(shape=(*tsz, 3),
-                                                                                                     dtype=tf.float32)
+    sig_x = {"images": tf.TensorSpec(shape=(*tsz, 3),
+                                     dtype=tf.float32 if use32 else tf.float16)} if d_img else tf.TensorSpec(
+        shape=(*tsz, 3),
+        dtype=tf.float32 if use32 else tf.float16)
     sig_y = {
         "bounding_boxes": {
             "boxes": tf.TensorSpec(shape=(1, 4), dtype=tf.float32),
@@ -105,82 +105,131 @@ def shape_coin_output(d_img, d_bb, img, box, cls=0):
 
     import numpy as np
 
+    boxes = np.array(box, dtype=np.float32)
+    classes = np.array([], dtype=np.int32) if boxes.shape[-1] == 0 else np.array([cls], dtype=np.int32)
+    # if boxes classes is empty then we just return an empty array for classes
+
     x = {"images": img} if d_img else img
     y = {
         "bounding_boxes": {
-            "boxes": np.array(box, dtype=np.float32),
-            "classes": np.array([0], dtype=np.int32)
+            "boxes": boxes,
+            "classes": classes
         }
     } if d_bb else {
-        "boxes": np.array(box, dtype=np.float32),
-        "classes": np.array([cls], dtype=np.int32)
+        "boxes": boxes,
+        "classes": classes
     }
 
     return x, y
 
 
-def coin_ds(xml_path, ext=None, visibility=None, format='xywh', tsz=(1024, 1024), d_img=True, d_bb=True, shuffle=True, float_type="float32"):
+def multi_coin_ds(xml_paths, nobox=True, togray=False, visibility=None, format='xywh', tsz=(1024, 1024), d_img=True,
+                  d_bb=True, shuffle=True, use32=True):
+    """
+
+    :param xml_paths: (xml_path, ext) = ext may be none
+    :param togray: only when images have transparency. makes the background gray
+    :param visibility: filter by visibility
+    :param format: any supported by keras_cv.bounding_box.convert_format
+    :param tsz: target size for resize (h, w)
+    :param d_img:
+    :param d_bb:
+    :param shuffle: set to shuffle training data
+    :param use32: image precision after normalisation: true=32, false=16.
+    :return: Generator of image (normalised) and labels.
+    """
     from pathlib import Path
     import xml.etree.ElementTree as ET
     import random
     from PIL import Image
-    import os
     import numpy as np
     import keras_cv
     import tensorflow as tf
 
-    image_folder = Path(xml_path).parent / "images"
-
     samples = []
-    tree = ET.parse(xml_path)
-    root = tree.getroot()
-    for image in root.findall('image'):
+    for xml_path, ext in xml_paths:
 
-        fn = image.get('name') + (('.' + ext) if ext is not None else '')
+        image_folder = Path(xml_path).parent / "images"
+        tree = ET.parse(xml_path)
+        root = tree.getroot()
+        for image in root.findall('image'):
 
-        if not (image_folder / fn).exists():
-            continue
+            fn = image.get('name') + (('.' + ext) if ext is not None else '')
+            full = image_folder / fn
 
-        box = image.find('box')
-        attr = box.find('attribute')
+            if not full.exists():
+                raise FileNotFoundError(str(full))
 
-        vis = attr.text if attr is not None and attr.get('name') == 'visibility' else None
-        if visibility is not None and vis not in visibility:
-            continue
+            box = image.find('box')
 
-        samples.append((
-            image.get('name') + (('.' + ext) if ext is not None else ''),
-            int(image.get('width')),
-            int(image.get('height')),
-            float(box.get('xtl')),
-            float(box.get('ytl')),
-            float(box.get('xbr')),
-            float(box.get('ybr'))
-        ))
+            if box is None:
+                if nobox:
+                    continue
+                else:
+                    samples.append((
+                        str(full),
+                        int(image.get('width')),
+                        int(image.get('height')),
+                        None,
+                    ))
+
+            attr = box.find('attribute')
+
+            vis = attr.text if attr is not None and attr.get('name') == 'visibility' else None
+            if visibility is not None and vis not in visibility:
+                continue
+
+            samples.append((
+                str(full),
+                int(image.get('width')),  # Image's height
+                int(image.get('height')),  # Image's width
+                # Also known as xyxy or xmin, ymin, xmax, ymax
+                (
+                    float(box.get('xtl')),  # Top left X
+                    float(box.get('ytl')),  # Top left Y
+                    float(box.get('xbr')),  # Bottom right X
+                    float(box.get('ybr'))  # Bottom right Y
+                )
+            ))
 
     if shuffle:
         random.shuffle(samples)
 
     def generator():
-        for image_name, width, height, xtl, ytl, xbr, ybr in samples:
-            path = os.path.join(image_folder, image_name)
+        for path, width, height, xyxy in samples:
+            img = Image.open(path)
 
-            with Image.open(path) as img:
-                img = img.convert('RGB')
-                img = img.resize(tsz)
+            if togray and img.mode == 'RGBA':
+                bg = Image.new("RGB", img.size, (128, 128, 128))
+                bg.paste(img, (0, 0), img)
+                finalimg = bg
+            else:
+                finalimg = img.convert('RGB')
 
-                finalimg = (np.array(img) / 255.0).astype(float_type)
+            finalimg = finalimg.resize(tsz)
+            finalimg = (np.array(finalimg) / 255.0).astype(np.float32 if use32 else np.float16)
 
-            box = np.array(keras_cv.bounding_box.convert_format(
-                np.array([[xtl * tsz[0] / width, ytl * tsz[1] / height, xbr * tsz[0] / width, ybr * tsz[1] / height]],
-                         dtype=np.float32),
-                'xyxy', format, image_shape=(*tsz, 3)
-            ),
-                dtype=np.float32)
+            img.close()
+
+            if xyxy is not None:
+                xtl, ytl, xbr, ybr = xyxy
+                box = np.array(keras_cv.bounding_box.convert_format(
+                    np.array([
+                        [  # Transforms origin xyxy to resized xyxy
+                            xtl * tsz[0] / width,
+                            ytl * tsz[1] / height,
+                            xbr * tsz[0] / width,
+                            ybr * tsz[1] / height]
+                    ], dtype=np.float32),
+                    'xyxy', format, image_shape=(*tsz, 3)  # Then back to whatever the user wants.
+                ),
+                    dtype=np.float32)
+            else:
+                box = np.array([], dtype=np.float32)
 
             yield shape_coin_output(d_img, d_bb, finalimg, box)
 
-    ds = tf.data.Dataset.from_generator(generator, output_signature=build_output_signature(d_img, d_bb, tsz))
+    ds = tf.data.Dataset.from_generator(generator, output_signature=build_output_signature(d_img, d_bb, tsz, use32))
     ds = ds.apply(tf.data.experimental.assert_cardinality(len(samples)))
 
     return ds
@@ -202,7 +251,7 @@ def composite_ds(*generators):
         cardin = 0
 
         for g in generators:
-            c = tf.data.experimental.cardinality(g)
+            c = g.cardinality()
 
             if c == tf.data.INFINITE_CARDINALITY:
                 return tf.data.INFINITE_CARDINALITY
@@ -237,9 +286,7 @@ def composite_ds(*generators):
     return ds
 
 
-
 def apply_gaussian_blur(kernel_size=15):
-
     import tensorflow as tf
     import cv2
 
@@ -306,5 +353,3 @@ def apply_directional_blur(angle_degrees=0.0, kernel_size=15):
         return blurred_img, label
 
     return process
-
-

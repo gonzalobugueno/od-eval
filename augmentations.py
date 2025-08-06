@@ -14,6 +14,7 @@ def apply_gaussian_blur(kernel_size=15):
     return process
 
 
+
 def apply_gaussian_noise(mean=0.0, stddev=0.1, monochromatic=False):
     import tensorflow as tf
 
@@ -35,30 +36,35 @@ def apply_gaussian_noise(mean=0.0, stddev=0.1, monochromatic=False):
     return process
 
 
-def apply_directional_blur(angle_degrees=0.0, kernel_size=15, float_type=None):
+def apply_directional_blur(angle_degrees=0.0, kernel_size=15):
     import numpy as np
     import cv2
     import tensorflow as tf
 
     def make_motion_blur_kernel(size, angle):
-        # Create an empty kernel
         kernel = np.zeros((size, size), dtype=np.float32)
-        # Draw a line across the center
         kernel[size // 2, :] = np.ones(size, dtype=np.float32)
-        # Normalize
         kernel /= kernel.sum()
-        # Rotate the kernel to the desired angle
         center = (size // 2, size // 2)
         rot_mat = cv2.getRotationMatrix2D(center, angle, 1.0)
         rotated = cv2.warpAffine(kernel, rot_mat, (size, size))
-        # Re-normalize in case of interpolation
         rotated /= rotated.sum()
         return rotated
 
     def process(img, label):
         def blur_fn(x):
+            # Convert to float32 (OpenCV's preferred type)
+            x_np = x.astype(np.float32) if isinstance(x, np.ndarray) else x.numpy().astype(np.float32)
+
+            # Apply blur to each channel independently
             k = make_motion_blur_kernel(kernel_size, angle_degrees)
-            return cv2.filter2D(x, -1, k)
+            if x_np.ndim == 3:
+                blurred = np.stack([cv2.filter2D(x_np[..., c], -1, k) for c in range(x_np.shape[-1])], axis=-1)
+            else:
+                blurred = cv2.filter2D(x_np, -1, k)
+
+            # Cast back to original dtype
+            return blurred.astype(img.dtype.as_numpy_dtype())
 
         blurred_img = tf.numpy_function(blur_fn, [img], img.dtype)
         blurred_img.set_shape(img.shape)

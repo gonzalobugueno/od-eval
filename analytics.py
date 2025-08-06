@@ -24,6 +24,7 @@ def metrics(ds, denominator=5):
     print(df.describe())
 
     ar = df['aspect_ratio'].apply(lambda x: Fraction(x).limit_denominator(denominator))
+
     mean_frac = Fraction(df['aspect_ratio'].mean()).limit_denominator(10)
 
     print(
