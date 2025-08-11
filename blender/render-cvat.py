@@ -5,21 +5,10 @@ from mathutils import Vector
 import os
 import xml.etree.ElementTree as ET
 
-# Output directories and files
-output_dir =  os.path.join(os.getcwd() ,'../synthetic')
+
+# TUNABLE PARAMETERS
+output_dir =  os.path.join(os.getcwd() ,'../datasets/synthetic-2')
 annotations_path = os.path.join(output_dir, 'annotations.xml')
-
-
-# Ensure base folders exist (images/labels/meta are handled elsewhere)
-def ensure_dir(path):
-    os.makedirs(path, exist_ok=True)
-
-
-# Parameter grid as before
-def grid_search(params):
-    keys = list(params.keys())
-    for values in itertools.product(*(params[key] for key in keys)):
-        yield dict(zip(keys, values))
 
 
 param_grid_synthetic = {
@@ -44,13 +33,23 @@ param_grid_simple = {
     'res_factor': [1]
 }
 
-# Initialize CVAT XML
+pg = param_grid_simple
+
+# END TUNABLE PARAMETERS
+
+def ensure_dir(path):
+    os.makedirs(path, exist_ok=True)
+
+def grid_search(params):
+    keys = list(params.keys())
+    for values in itertools.product(*(params[key] for key in keys)):
+        yield dict(zip(keys, values))
+
 annotations = ET.Element('annotations')
 version = ET.SubElement(annotations, 'version')
 version.text = '1.1'
 
 
-# Unique image counter as string ID
 def make_image_element(idx, width, height):
     image_elem = ET.Element('image', {
         'id': str(idx),
@@ -60,8 +59,6 @@ def make_image_element(idx, width, height):
     })
     return image_elem
 
-
-# Convert bbox from Blender's get_object_render_bbox to CVAT box element
 
 def bbox_to_box_element(coords, label='50cent'):
     x1, y1, x2, y2 = coords
@@ -76,7 +73,6 @@ def bbox_to_box_element(coords, label='50cent'):
     return ET.Element('box', box_attribs)
 
 
-# Helper to get render bbox (unchanged)
 def get_object_render_bbox(obj):
     render = bpy.context.scene.render
     scale = render.resolution_percentage / 100
@@ -105,11 +101,9 @@ def get_object_render_bbox(obj):
     return (min_x, min_y, max_x, max_y)
 
 
-# Prepare output dirs
 ensure_dir(output_dir)
 ensure_dir(os.path.join(output_dir, 'images'))
 
-# Load blend
 bpy.ops.wm.open_mainfile(filepath="my.blend")
 
 scene = bpy.context.scene
@@ -118,9 +112,7 @@ sun = scene.objects['Sun']
 CAM = bpy.data.objects['Camera']
 scene.camera = CAM
 
-# Iterate grid
-for idx, grid in enumerate(grid_search(param_grid_simple)):
-    # Set transforms
+for idx, grid in enumerate(grid_search(pg)):
     obj.location.x = grid['coin_x_metres']
     obj.location.y = grid['coin_y_metres']
     obj.rotation_euler[2] = grid['coin_yaw']
@@ -129,7 +121,6 @@ for idx, grid in enumerate(grid_search(param_grid_simple)):
     sun.data.angle = grid['sun_angle']
     sun.data.energy = grid['sun_energy']
 
-    # Render settings
     w = 1920 * grid['res_factor']
     h = 1080 * grid['res_factor']
     scene.render.resolution_percentage = 100
@@ -145,19 +136,15 @@ for idx, grid in enumerate(grid_search(param_grid_simple)):
     scene.cycles.denoiser = 'OPENIMAGEDENOISE'
     scene.eevee.taa_render_samples = 1
 
-    # Render
     bpy.ops.render.render(write_still=True)
 
-    # Compute bbox and add annotation
     bbox = get_object_render_bbox(obj)
     if bbox:
-        # Ensure image element exists or create
         img_elem = make_image_element(idx, w, h)
         annotations.append(img_elem)
         box_elem = bbox_to_box_element(bbox)
         img_elem.append(box_elem)
 
-# Write XML
 tree = ET.ElementTree(annotations)
 tree.write(annotations_path, encoding='utf-8', xml_declaration=True)
 print(f"Saved CVAT 1.1 annotations to {annotations_path}")

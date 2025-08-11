@@ -265,12 +265,14 @@ def shape_coin_output(d_img, d_bb, img, box, cls=0):
     return x, y
 
 
-def multi_coin_ds(xml_paths, nobox=True, normalise=True, togray=False, visibility=None, format='xywh', tsz=(1024, 1024),
+def multi_coin_ds(xml_paths, nobox=True, normalise=True, togray=False, custombg=None, visibility=None, format='xywh', tsz=(1024, 1024),
                   d_img=True, d_bb=True, shuffle=True, use32=True):
     """
 
     :param xml_paths: (xml_path, ext) = ext may be none
+    :param nobox: bool, allows frames without bounding boxes
     :param togray: only when images have transparency. makes the background gray
+    :param custombg: tuple with custom background colour
     :param visibility: filter by visibility
     :param format: any supported by keras_cv.bounding_box.convert_format
     :param tsz: target size for resize (h, w)
@@ -343,6 +345,10 @@ def multi_coin_ds(xml_paths, nobox=True, normalise=True, togray=False, visibilit
 
             if togray and img.mode == 'RGBA':
                 bg = Image.new("RGB", img.size, (128, 128, 128))
+                bg.paste(img, (0, 0), img)
+                finalimg = bg
+            elif isinstance(custombg, tuple) and img.mode == 'RGBA':
+                bg = Image.new("RGB", img.size, custombg)
                 bg.paste(img, (0, 0), img)
                 finalimg = bg
             else:

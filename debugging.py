@@ -99,7 +99,7 @@ def visualise_sample(ds, boxfmt='xywh', class_mapping=None):
         )
 
 
-def visualise_sample_bboxes(ds, label=None):
+def visualise_sample_bboxes(ds, label=None, hidegraphics=False):
     """
     Requires XYWH boxes!!!
     :param ds:
@@ -123,7 +123,14 @@ def visualise_sample_bboxes(ds, label=None):
             plt.imshow(np.array(image[y_min:y_max, x_min:x_max] * 255, dtype=np.uint8))
             plt.title(
                 f"cls={clazz}, h={int(height)}, w={int(width)}" if not label else f"{label} cls={clazz}, h={int(height)}, w={int(width)}")
-            plt.axis(False)
+            plt.axis('off')
+            if hidegraphics:
+                plt.gca().set_axis_off()
+                plt.subplots_adjust(top=1, bottom=0, right=1, left=0, hspace=0, wspace=0)
+                plt.margins(0, 0)
+                plt.gca().xaxis.set_major_locator(plt.NullLocator())
+                plt.gca().yaxis.set_major_locator(plt.NullLocator())
+
             plt.show()
 
 
